@@ -2,20 +2,23 @@ import React, {useState} from 'react'
 import {register} from '../../actions/auth'
 import {connect} from "react-redux";
 import {Link,Redirect} from 'react-router-dom'
+import {createMessgae} from '../../actions/messages'
 
 const Register = (props) => {
-    console.log("Register", props.isAuthenticate)
+    console.log("Register message", props)
     const [user, setUser] = useState({
         email: '',
         password: '',
         password2: ''
     });
-    let error = null;
+    let err = false;
     const onSubmit = (e)=>{
         // console.log('OnSubmit',user)
         const {email,password, password2} = user;
         if (password !== password2){
-            error = "Password not match"
+
+            err = true
+            console.log("password not match",err)
         }
         else {
             const newUser = {
@@ -31,15 +34,15 @@ const Register = (props) => {
         console.log("Onchange",user)
         setUser({...user,[e.target.name]:e.target.value})
     };
-     console.log("UERRRRR",typeof user)
+     console.log("UERRRRR",user)
      if(props.isAuthenticate){
             return (<Redirect to="/"/>);
         }
-        let header = ''
-
+        console.log("Err after sunmit",err)
     return (
         <div className="col-md-6 m-auto login-form">
             <div className="card card-body mt-5" style={{borderRadius:'2%'}}>
+                <h3>{err ? `Password not matched`:''}</h3>
                 <h2 className="text-center">Register</h2>
                 <form action='' onSubmit={onSubmit}>
                     <div className="form-group">
@@ -70,7 +73,8 @@ const Register = (props) => {
     )
 }
 const mapStateToProps = (state) => ({
-    isAuthenticate: state.auth.isAuthenticate
+    isAuthenticate: state.auth.isAuthenticate,
     // state.auth.isAuthenticate
+    message:state.messages
 });
 export default connect(mapStateToProps,{register})(Register);

@@ -10,5 +10,5 @@ const store = createStore(
     initialState,
     composeWithDevTools(applyMiddleware(...middleware))
 );
-console.warn("Store data",store);
+console.log("Store data",store);
 export default store
