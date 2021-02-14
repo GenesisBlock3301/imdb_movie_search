@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {register} from '../../actions/auth'
 import {connect} from "react-redux";
 import {Link,Redirect} from 'react-router-dom'
-import {createMessgae} from '../../actions/messages'
+
 
 const Register = (props) => {
     console.log("Register message", props)
